@@ -24,9 +24,31 @@ app.set('view engine', 'handlebars')
 //incluindo o css
 app.use(express.static('public'));
 
+app.get('/users/create', (req, res) => {
+    res.render('adduser')
+})
+
+app.post('/users/create', async(req, res) => {
+    const name = req.body.name
+    const occupation = req.body.occupation
+    let newsletter = req.body.newsletter
+
+    if(newsletter === 'on'){
+        newsletter = true
+    }else{
+        newsletter = false
+    }
+
+    await User.create({name, occupation, newsletter})
+
+    res.redirect('/')
+})
+
 //criando página principal
-app.get('/', (req, res) => {
-    res.render('home')
+app.get('/', async (req, res) => {
+
+    const users = await User.findAll({raw: true})
+    res.render('home', {users : users})
 });
 
 connection.sync().then(()=>{
