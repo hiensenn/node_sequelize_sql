@@ -44,6 +44,14 @@ app.post('/users/create', async(req, res) => {
     res.redirect('/')
 })
 
+app.get('/users/:id', async (req, res) => {
+    const id = req.params.id
+
+    const user = await User.findOne({raw: true, WHERE: {id:id}})
+
+    res.render('userview', {user})
+})
+
 //criando página principal
 app.get('/', async (req, res) => {
 

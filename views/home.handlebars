@@ -4,7 +4,11 @@
         
             {{#each users}}
                 <div class="item">
-                    <p>{{this.name}}</p>
+                    <h3>Nome: <span>{{this.name}}</span></h3>
+                    <h3>Profissão: <span>{{this.occupation}}</span></h3>
+                    <div class="actions"> <br>
+                      <button class="botao" ><a href="/users/{{this.id}}" style="color: black;">detalhes</a></button>  
+                    </div>
                 </div>
             {{/each}}
         
