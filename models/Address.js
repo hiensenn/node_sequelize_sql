@@ -21,6 +21,7 @@ const Address = db.define('Address', {
     },
 })
 
+User.hasMany(Address)
 //relacionamento entre as duas tabelas
 Address.belongsTo(User)
 

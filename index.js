@@ -5,7 +5,6 @@ const connection = require('./db/connection')
 //importando Model
 const User = require('./models/User')
 const Address = require('./models/Address')
-
 const app = express();
 
 //conectando a extensão da rota
@@ -63,8 +62,15 @@ app.post('/users/delete/:id', async(req, res) => {
 app.get('/users/edit/:id', async(req, res) => {
     const id = req.params.id
 
-    const user = await User.findOne({raw: true, where: {id:id}})
-    res.render('useredit', {user})
+    try{
+        const user = await User.findOne({include: Address, where: {id:id}})
+
+        res.render('useredit', {user: user.get({plain: true}) })
+    }catch(error){
+        console.log(error)
+    }
+
+    
 })
 
 app.post('/users/update', async(req, res) => {
@@ -90,6 +96,23 @@ app.post('/users/update', async(req, res) => {
     res.redirect('/')
 })
 
+app.post('/address/create', async(req, res) => {
+    const UserId = req.body.UserId
+    const street = req.body.street
+    const number = req.body.number
+    const city = req.body.city
+
+    const address = {
+        UserId,
+        street,
+        number,
+        city,
+    }
+
+    await Address.create(address)
+
+    res.redirect(`/users/edit/${UserId}`)
+})
 
 //criando página principal
 app.get('/', async (req, res) => {
