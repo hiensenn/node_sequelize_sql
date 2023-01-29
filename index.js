@@ -4,6 +4,7 @@ const connection = require('./db/connection')
 
 //importando Model
 const User = require('./models/User')
+const Address = require('./models/Address')
 
 const app = express();
 
@@ -97,7 +98,10 @@ app.get('/', async (req, res) => {
     res.render('home', {users : users})
 });
 
-connection.sync().then(()=>{
+connection
+    .sync() 
+    //.sync({force:true}) //= serve para o caso de ser adcionado um novo campo na tabela. Assim os dados serão excluídos e não serão nulos
+    .then(()=>{
     app.listen(3000)
 }).catch((err) => console.log(err))
 
