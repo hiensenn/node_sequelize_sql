@@ -92,6 +92,8 @@ h3{
     text-align: center;
     margin: 2% auto;
     text-decoration: none;
+    border: none;
+   cursor: pointer;
 }
 .livros-main{
     display: grid;
@@ -144,11 +146,12 @@ h3{
     
 }
 .container .item{
-   
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;
     flex: 1 1 29%;
     max-width: 29%;
-    height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }

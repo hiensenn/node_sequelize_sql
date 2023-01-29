@@ -7,8 +7,14 @@
                     <h3>Nome: <span>{{this.name}}</span></h3>
                     <h3>Profissão: <span>{{this.occupation}}</span></h3>
                     <div class="actions"> <br>
-                      <button class="botao" ><a href="/users/{{this.id}}" style="color: black;">detalhes</a></button>  
+                        <button class="botao" ><a href="/users/{{this.id}}" style="color: black;">detalhes</a></button> 
+                        <button class="botao" ><a href="/users/edit/{{this.id}}" style="color: black;">editar</a></button> 
+                      <form action="/users/delete/{{this.id}}" method="post">
+                        <input type="submit" value="excluir" class="botao">
+                      </form>
+
                     </div>
+
                 </div>
             {{/each}}
         
